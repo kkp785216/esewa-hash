@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HMAC-SHA256 Hash Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha256.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/enc-base64.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        text-align: center;
+        padding: 20px;
+      }
+      .container {
+        max-width: 400px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        color: #333;
+      }
+      label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+      button {
+        margin-top: 15px;
+        padding: 10px 15px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      button:hover {
+        background-color: #218838;
+      }
+      #hashOutput {
+        margin-top: 15px;
+        word-break: break-all;
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>HMAC-SHA256 Hash Generator</h2>
+      <label for="secretKey">Secret Key:</label>
+      <input type="text" id="secretKey" placeholder="Enter secret key" /><br />
+      <label for="message">Message:</label>
+      <input type="text" id="message" placeholder="Enter message" /><br />
+      <button onclick="generateHash()">Generate Hash</button>
+      <h3>Generated Hash:</h3>
+      <p id="hashOutput"></p>
+    </div>
+    <script>
+      function generateHash() {
+        var secretKey = document.getElementById("secretKey").value;
+        var message = document.getElementById("message").value;
+        if (!secretKey || !message) {
+          alert("Please enter both secret key and message.");
+          return;
+        }
+        var hash = CryptoJS.HmacSHA256(message, secretKey);
+        var hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
+        document.getElementById("hashOutput").innerText = hashInBase64;
+      }
+    </script>
+  </body>
+</html>
